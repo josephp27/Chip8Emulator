@@ -1,6 +1,7 @@
 package controller;
 
 import chip8.Chip8;
+import engine.MostSignificantNonZerosHelper;
 import graphics.Graphics;
 import input.Input;
 
@@ -9,6 +10,7 @@ public class LoopController {
     private Chip8 chip8;
     private Graphics graphics;
     private Input input;
+
     private long firstTick;
 
     public LoopController(Chip8 chip8, Graphics graphics, Input input) {

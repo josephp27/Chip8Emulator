@@ -7,7 +7,6 @@ import lombok.Data;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -77,9 +76,22 @@ public class Chip8 {
         reader.close();
     }
 
+    public void updateTimer() {
+
+        if (delayTimer > 0)
+            delayTimer--;
+
+        if (soundTimer > 0) {
+            if (soundTimer == 1)
+                System.out.println("BEEP!\n");
+            soundTimer--;
+        }
+    }
+
     public void emulateCycle() {
         opcode = opcodeEngine.calculateOpcode(memory[pc], memory[pc + 1]);
         opcodeEngine.decode(this);
+        updateTimer();
     }
 
 

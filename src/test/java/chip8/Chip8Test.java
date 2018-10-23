@@ -36,4 +36,19 @@ public class Chip8Test {
         }
 
     }
+
+    @Test
+    public void testTime() {
+
+        Chip8 chip8 = new Chip8();
+        chip8.initialize();
+        chip8.setSoundTimer((char) 60);
+        chip8.setDelayTimer((char) 60);
+
+        for (int i = 60; i >= 0; i--) {
+            assertThat((int) chip8.getDelayTimer(), is(i));
+            assertThat((int) chip8.getSoundTimer(), is(i));
+            chip8.updateTimer();
+        }
+    }
 }

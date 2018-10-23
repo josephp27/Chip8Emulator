@@ -4,49 +4,23 @@ import chip8.Chip8;
 
 public class OpcodeEngine {
 
-    public void decode(Chip8 chip8) {
-        short opcode = chip8.getOpcode();
-        switch (opcode & 0xF000) {
-            case 0xA000: // ANNN: Sets I to the address NNN
-                // Execute opcode
-                chip8.setIndex(opcode & 0x0FFF);
-                chip8.setPc(chip8.getPc() + 2);
-                break;
+    private MostSignificantNonZerosHelper msNzHelper;
+    private MostSignificantZerosHelper mszHelper;
 
-            case 0x0000:
-                switch (opcode & 0x000F) {
-                    case 0x0000: // 0x00E0: Clears the screen
-                        // Execute opcode
-                        break;
-
-                    case 0x000E: // 0x00EE: Returns from subroutine
-                        // Execute opcode
-                        break;
-
-                    default:
-                        System.out.println("Unknown opcode [0x0000]: " + opcode);
-                }
-                break;
-
-            default:
-                System.out.println("unknown opcode " + chip8.getOpcode());
-        }
-
-
-        updateTimer(chip8);
+    public OpcodeEngine(){
+        msNzHelper = new MostSignificantNonZerosHelper();
+        mszHelper = new MostSignificantZerosHelper();
     }
 
-    public void updateTimer(Chip8 chip8) {
-        char soundTimer = chip8.getSoundTimer();
-        char delayTimer = chip8.getDelayTimer();
+    public void decode(Chip8 chip8) {
+        short opcode = chip8.getOpcode();
 
-        if (delayTimer > 0)
-            chip8.setDelayTimer(--delayTimer);
+        short operation = (short) (opcode & 0xF000);
 
-        if (soundTimer > 0) {
-            if (soundTimer == 1)
-                System.out.println("BEEP!\n");
-            chip8.setSoundTimer(--soundTimer);
+        if (operation == 0x0000) {
+            mszHelper.mostSignificantZeros(chip8, opcode);
+        } else {
+            msNzHelper.mostSignificantNonZeros(chip8, opcode);
         }
     }
 
