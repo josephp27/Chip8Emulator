@@ -32,16 +32,22 @@ public class OpcodeEngine {
                 System.out.println("unknown opcode " + chip8.getOpcode());
         }
 
-        // Update timers
-//        if(delay_timer > 0)
-//            --delay_timer;
-//
-//        if(sound_timer > 0)
-//        {
-//            if(sound_timer == 1)
-//                printf("BEEP!\n");
-//            --sound_timer;
-//        }
+
+        updateTimer(chip8);
+    }
+
+    public void updateTimer(Chip8 chip8) {
+        char soundTimer = chip8.getSoundTimer();
+        char delayTimer = chip8.getDelayTimer();
+
+        if (delayTimer > 0)
+            chip8.setDelayTimer(--delayTimer);
+
+        if (soundTimer > 0) {
+            if (soundTimer == 1)
+                System.out.println("BEEP!\n");
+            chip8.setSoundTimer(--soundTimer);
+        }
     }
 
     public short calculateOpcode(char firstAddress, char secondAddress) {
