@@ -1,5 +1,9 @@
 package com.joseph.chip8.chip8;
 
+import com.joseph.chip8.engine.OpcodeEngine;
+import com.joseph.chip8.graphics.Fonts;
+import com.joseph.chip8.graphics.Graphics;
+import com.joseph.chip8.input.Input;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,9 +12,9 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Builder
+@Component
 @NoArgsConstructor
 @AllArgsConstructor
-@Component
 public class Settings {
     private boolean draw;
     private char[] memory;
@@ -21,4 +25,8 @@ public class Settings {
     private short opcode;
     private char delayTimer;
     private char soundTimer;
+    private Graphics graphics;
+    private Input input;
+    private OpcodeEngine opcodeEngine;
+    private Fonts fonts;
 }

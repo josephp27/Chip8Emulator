@@ -36,6 +36,10 @@ public class Chip8 {
                 .stack(new short[16])
                 .delayTimer((char) 0)
                 .soundTimer((char) 0)
+                .graphics(graphics)
+                .fonts(fonts)
+                .input(input)
+                .opcodeEngine(opcodeEngine)
                 .build();
 
         // TODO: Clear display
@@ -45,8 +49,6 @@ public class Chip8 {
         for (int i = 0; i < 80; i++) {
             settings.getMemory()[i] = fontList.get(i);
         }
-
-        System.out.println(settings.getMemory());
     }
 
     public void loadGame(String game) throws IOException {
@@ -61,9 +63,6 @@ public class Chip8 {
             i++;
             data = reader.read();
         }
-
-        System.out.println(settings.getMemory());
-
     }
 
     public void updateTimer() {
