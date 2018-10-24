@@ -11,11 +11,18 @@ public class MostSignificantNonZerosHelper {
             case 0xA000: // ANNN: Sets I to the address NNN
                 chip8.getSettings().setIndex(opcode & 0xFFF);
                 chip8.getSettings().setPc(chip8.getSettings().getPc() + 2);
+                break;
             case 0x0000:
+                break;
+            case 0x1000:
 
+                //TODO make sure this is correct
+                System.out.println("jump!");
+                chip8.getSettings().setPc(opcode & 0xFFF);
+                break;
 
             default:
-                System.out.println("unknown opcode " + chip8.getSettings().getOpcode());
+                System.out.println("unknown opcode " + opcode);
         }
     }
 
