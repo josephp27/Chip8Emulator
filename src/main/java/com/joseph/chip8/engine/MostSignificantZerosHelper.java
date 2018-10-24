@@ -9,7 +9,7 @@ public class MostSignificantZerosHelper {
         switch (opcode & 0x000F) {
             case 0x0000: // 0x00E0: Clears the screen
                 // Execute opcode
-                chip8.getSettings().getGraphics().clear();
+                chip8.getSettings().getChip8Graphics().clear();
 
                 break;
 

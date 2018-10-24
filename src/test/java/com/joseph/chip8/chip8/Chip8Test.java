@@ -4,7 +4,7 @@ import com.joseph.chip8.engine.MostSignificantNonZerosHelper;
 import com.joseph.chip8.engine.MostSignificantZerosHelper;
 import com.joseph.chip8.engine.OpcodeEngine;
 import com.joseph.chip8.graphics.Fonts;
-import com.joseph.chip8.graphics.Graphics;
+import com.joseph.chip8.graphics.Chip8Graphics;
 import com.joseph.chip8.input.Input;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,10 +20,9 @@ import static org.junit.Assert.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class Chip8Test {
 
-    private Chip8 chip8 = new Chip8(new Fonts(), new Input(), new Graphics(), new OpcodeEngine(
+    private Chip8 chip8 = new Chip8(new Fonts(), new Input(), new Chip8Graphics(), new OpcodeEngine(
             new MostSignificantNonZerosHelper(),
-            new MostSignificantZerosHelper()),
-            new Settings());
+            new MostSignificantZerosHelper()));
 
     private final List<Character> expectedMemory = Arrays.asList(
             new Character[]{

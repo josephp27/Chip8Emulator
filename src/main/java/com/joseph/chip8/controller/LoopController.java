@@ -1,7 +1,7 @@
 package com.joseph.chip8.controller;
 
 import com.joseph.chip8.chip8.Chip8;
-import com.joseph.chip8.graphics.Graphics;
+import com.joseph.chip8.graphics.Chip8Graphics;
 import com.joseph.chip8.input.Input;
 import org.springframework.stereotype.Service;
 
@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 public class LoopController {
 
     private Chip8 chip8;
-    private Graphics graphics;
+    private Chip8Graphics chip8Graphics;
     private Input input;
     private long firstTick;
 
-    public LoopController(Chip8 chip8, Graphics graphics, Input input) throws Exception {
+    public LoopController(Chip8 chip8, Chip8Graphics chip8Graphics, Input input) throws Exception {
         this.chip8 = chip8;
-        this.graphics = graphics;
+        this.chip8Graphics = chip8Graphics;
         this.input = input;
 
         firstTick = 0;
@@ -32,7 +32,7 @@ public class LoopController {
 
         long sleepTime;
 
-        graphics.setup();
+        chip8Graphics.setup();
         input.setup();
 
         chip8.initialize();
@@ -44,7 +44,7 @@ public class LoopController {
             chip8.emulateCycle();
 
             if (chip8.getSettings().isDraw()) {
-                graphics.draw();
+                chip8Graphics.draw();
             }
 
             input.pressKeys();

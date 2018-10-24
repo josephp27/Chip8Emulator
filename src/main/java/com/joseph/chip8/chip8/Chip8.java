@@ -1,11 +1,11 @@
 package com.joseph.chip8.chip8;
 
 import com.joseph.chip8.engine.OpcodeEngine;
+import com.joseph.chip8.graphics.Chip8Graphics;
 import com.joseph.chip8.graphics.Fonts;
-import com.joseph.chip8.graphics.Graphics;
 import com.joseph.chip8.input.Input;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -13,16 +13,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Service
-@AllArgsConstructor
 public class Chip8 {
 
     private Fonts fonts;
     private Input input;
-    private Graphics graphics;
+    private Chip8Graphics chip8Graphics;
     private OpcodeEngine opcodeEngine;
     private Settings settings;
+
+    public Chip8(Fonts fonts, Input input, Chip8Graphics chip8Graphics, OpcodeEngine opcodeEngine) {
+        this.fonts = fonts;
+        this.input = input;
+        this.chip8Graphics = chip8Graphics;
+        this.opcodeEngine = opcodeEngine;
+    }
 
     public void initialize() {
 
@@ -36,7 +43,7 @@ public class Chip8 {
                 .stack(new short[16])
                 .delayTimer((char) 0)
                 .soundTimer((char) 0)
-                .graphics(graphics)
+                .chip8Graphics(chip8Graphics)
                 .fonts(fonts)
                 .input(input)
                 .opcodeEngine(opcodeEngine)
