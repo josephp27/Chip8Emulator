@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -36,10 +37,11 @@ public class Chip8 {
         settings = Settings.builder()
                 .draw(true)
                 .memory(new char[4096])
-                .pc(0x200)
-                .index(0)
+                .pc((short) 0x200)
+                .registers(new char[16])
+                .index((short) 0)
                 .opcode((short) 0)
-                .sp(0)
+                .sp((short) 0)
                 .stack(new short[16])
                 .delayTimer((char) 0)
                 .soundTimer((char) 0)
@@ -49,8 +51,10 @@ public class Chip8 {
                 .opcodeEngine(opcodeEngine)
                 .build();
 
-        // TODO: Clear display
-        // TODO: Clear registers V0-VF
+        settings.getChip8Graphics().clear();
+        Arrays.fill(settings.getRegisters(), (char) 0);
+        Arrays.fill(settings.getStack(), (short) 0);
+        Arrays.fill(settings.getMemory(), (char) 0);
 
         List<Character> fontList = fonts.getFontSet();
         for (int i = 0; i < 80; i++) {

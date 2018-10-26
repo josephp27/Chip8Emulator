@@ -1,8 +1,6 @@
 package com.joseph.chip8.chip8;
 
-import com.joseph.chip8.engine.MostSignificantNonZerosHelper;
-import com.joseph.chip8.engine.MostSignificantZerosHelper;
-import com.joseph.chip8.engine.OpcodeEngine;
+import com.joseph.chip8.engine.*;
 import com.joseph.chip8.graphics.Fonts;
 import com.joseph.chip8.graphics.Chip8Graphics;
 import com.joseph.chip8.input.Input;
@@ -21,8 +19,8 @@ import static org.junit.Assert.assertThat;
 public class Chip8Test {
 
     private Chip8 chip8 = new Chip8(new Fonts(), new Input(), new Chip8Graphics(), new OpcodeEngine(
-            new MostSignificantNonZerosHelper(),
-            new MostSignificantZerosHelper()));
+            new MostSignificantMisc(),
+            new MostSignificantZero(), new MostSignificantEight(), new MostSignificantF(), new MostSignificantE()));
 
     private final List<Character> expectedMemory = Arrays.asList(
             new Character[]{

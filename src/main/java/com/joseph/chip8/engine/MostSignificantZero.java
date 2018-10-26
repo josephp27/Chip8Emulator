@@ -4,8 +4,8 @@ import com.joseph.chip8.chip8.Chip8;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MostSignificantZerosHelper {
-    public void mostSignificantZeros(Chip8 chip8, short opcode) {
+public class MostSignificantZero {
+    public void evaluateOpcode(Chip8 chip8, short opcode) {
         switch (opcode & 0x000F) {
             case 0x0000: // 0x00E0: Clears the screen
                 // Execute opcode

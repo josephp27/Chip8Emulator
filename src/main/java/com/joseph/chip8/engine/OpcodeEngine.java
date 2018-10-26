@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class OpcodeEngine {
 
-    private MostSignificantNonZerosHelper msNzHelper;
-    private MostSignificantZerosHelper mszHelper;
+    private MostSignificantMisc mostSignificantMisc;
+    private MostSignificantZero mostSignificantZero;
+    private MostSignificantEight mostSignificantEight;
+    private MostSignificantF mostSignificantF;
+    private MostSignificantE mostSignificantE;
 
     public void decode(Chip8 chip8) {
         short opcode = chip8.getSettings().getOpcode();
@@ -17,9 +20,15 @@ public class OpcodeEngine {
         short operation = (short) (opcode & 0xF000);
 
         if (operation == 0x0000) {
-            mszHelper.mostSignificantZeros(chip8, opcode);
+            mostSignificantZero.evaluateOpcode(chip8, opcode);
+        } else if (operation == -0x8000) {
+            mostSignificantEight.evaluateOpcode(chip8, opcode);
+        } else if (operation == -0x2000) {
+            mostSignificantE.evaluateOpcode(chip8, opcode);
+        } else if (operation == -0xF000) {
+            mostSignificantF.evaluateOpcode(chip8, opcode);
         } else {
-            msNzHelper.mostSignificantNonZeros(chip8, opcode);
+            mostSignificantMisc.mostSignificantNonZeros(chip8, opcode);
         }
     }
 
