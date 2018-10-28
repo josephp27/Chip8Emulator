@@ -33,7 +33,7 @@ public class MostSignificantNonZerosHelperTest {
 
     @Test
     public void name() {
-        short operation = (short) (0xE000 & 0xF000);
+        int operation = (0xE000 & 0xF000);
         System.out.println(operation == 0xE000);
     }
 }

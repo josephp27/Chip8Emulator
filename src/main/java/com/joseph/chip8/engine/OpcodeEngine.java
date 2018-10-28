@@ -17,18 +17,18 @@ public class OpcodeEngine {
     public void decode(Chip8 chip8) {
         short opcode = chip8.getSettings().getOpcode();
 
-        short operation = (short) (opcode & 0xF000);
+        int operation = opcode & 0xF000;
 
         if (operation == 0x0000) {
             mostSignificantZero.evaluateOpcode(chip8, opcode);
-        } else if (operation == -0x8000) {
+        } else if (operation == 0x8000) {
             mostSignificantEight.evaluateOpcode(chip8, opcode);
-        } else if (operation == -0x2000) {
+        } else if (operation == 0xE000) {
             mostSignificantE.evaluateOpcode(chip8, opcode);
-        } else if (operation == -0xF000) {
+        } else if (operation == 0xF000) {
             mostSignificantF.evaluateOpcode(chip8, opcode);
         } else {
-            mostSignificantMisc.mostSignificantNonZeros(chip8, opcode);
+            mostSignificantMisc.evaluateOpcode(chip8, opcode);
         }
     }
 
