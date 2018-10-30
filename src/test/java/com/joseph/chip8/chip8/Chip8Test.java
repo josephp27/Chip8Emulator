@@ -18,7 +18,8 @@ import static org.junit.Assert.assertThat;
 @RunWith(MockitoJUnitRunner.class)
 public class Chip8Test {
 
-    private Chip8 chip8 = new Chip8(new Fonts(), new Input(), new Chip8Graphics(), new OpcodeEngine(
+    private Chip8Graphics chip8Graphics = new Chip8Graphics();
+    private Chip8 chip8 = new Chip8(new Fonts(), new Input(), chip8Graphics, new OpcodeEngine(
             new MostSignificantMisc(),
             new MostSignificantZero(), new MostSignificantEight(), new MostSignificantF(), new MostSignificantE()));
 
@@ -30,6 +31,7 @@ public class Chip8Test {
 
     @Test
     public void testLoad_ChecksIfFontSetProperlySet_ChecksIfGameLoadedProperly() throws IOException {
+        chip8Graphics.setup();
         chip8.initialize();
         chip8.loadGame("BLITZ");
 
@@ -44,6 +46,7 @@ public class Chip8Test {
     @Test
     public void testTime() {
 
+        chip8Graphics.setup();
         chip8.initialize();
         chip8.getSettings().setSoundTimer((char) 60);
         chip8.getSettings().setDelayTimer((char) 60);
