@@ -81,6 +81,17 @@ public class MostSignificantMisc {
                 Helper.incrementProgramCounter(chip8);
                 break;
 
+            case 0x4000: // Skips the next instruction if VX doesn't equal NN.
+                x = Helper.getX(opcode);
+                int NN = Helper.lowestByte(opcode);
+
+                if (registers[x] != NN) {
+                    Helper.incrementProgramCounter(chip8);
+                }
+
+                Helper.incrementProgramCounter(chip8);
+                break;
+
             default:
                 System.out.println(String.format("unknown opcode: 0x%08X", opcode));
         }

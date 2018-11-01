@@ -45,6 +45,20 @@ public class MostSignificantEight {
                 Helper.incrementProgramCounter(chip8);
                 break;
 
+            case 0x0005: // 0x8XY5: VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
+                x = Helper.getX(opcode);
+                y = Helper.getY(opcode);
+
+                if (registers[y] > registers[x]) {
+                    registers[0xF] = 0;
+                } else {
+                    registers[0xF] = 1;
+                }
+
+                registers[x] -= registers[y];
+                Helper.incrementProgramCounter(chip8);
+                break;
+
             default:
                 System.out.println(String.format("unknown opcode: 0x%08X", opcode));
 

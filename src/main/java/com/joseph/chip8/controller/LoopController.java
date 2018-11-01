@@ -27,7 +27,7 @@ public class LoopController {
         //TODO implement this so frame isnt capped at 60
         firstTick = System.currentTimeMillis();
 
-        final int FRAMES_PER_SECOND = 60;
+        final int FRAMES_PER_SECOND = 800;
         final int SKIP_TICKS = 1000 / FRAMES_PER_SECOND;
 
         long sleepTime;

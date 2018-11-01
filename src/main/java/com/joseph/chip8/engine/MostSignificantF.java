@@ -73,6 +73,12 @@ public class MostSignificantF {
                 Helper.incrementProgramCounter(chip8);
                 break;
 
+            case 0x018: // Sets the sound timer to VX.
+                x = Helper.getX(opcode);
+                chip8.getSettings().setSoundTimer(registers[x]);
+                Helper.incrementProgramCounter(chip8);
+                break;
+
             default:
                 System.out.println(String.format("unknown opcode: 0x%08X", opcode));
         }
