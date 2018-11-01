@@ -25,4 +25,12 @@ public class Helper {
     public static char lowestByte(int opcode) {
         return (char) (opcode & 0xFF);
     }
+
+    public static int getX(int opcode){
+        return (opcode & 0x0F00) >> 8;
+    }
+
+    public static int getY(int opcode){
+        return (opcode & 0x00F0) >> 4;
+    }
 }

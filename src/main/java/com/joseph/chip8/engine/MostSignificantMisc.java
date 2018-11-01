@@ -4,12 +4,17 @@ import com.joseph.chip8.chip8.Chip8;
 import com.joseph.chip8.chip8.Settings;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
+
 @Component
 public class MostSignificantMisc {
 
     public void evaluateOpcode(Chip8 chip8, int opcode) {
         Settings settings = chip8.getSettings();
         char[] registers = settings.getRegisters();
+        int x;
+        int y;
+
         switch (opcode & 0xF000) {
             case 0x1000: //	TODO: Jumps to address NNN.
                 settings.setPc(opcode & 0x0FFF);
@@ -21,14 +26,22 @@ public class MostSignificantMisc {
                 settings.setPc((short) (opcode & 0x0FFF));
                 break;
 
+            case 0x3000: // 0x3XNN: Skips the next instruction if VX equals NN
+                if (registers[(opcode & 0x0F00) >> 8] == (opcode & 0x00FF)) {
+                    Helper.incrementProgramCounter(chip8); //skips next instruction -- double increment
+                }
+
+                Helper.incrementProgramCounter(chip8);
+                break;
+
             case 0xA000: // ANNN: Sets I to the address NNN
                 settings.setIndex(Helper.lowest12bits((short) opcode));
                 Helper.incrementProgramCounter(chip8);
                 break;
 
             case 0xD000:
-                int x = settings.getRegisters()[(opcode & 0x0F00) >> 8];
-                int y = settings.getRegisters()[(opcode & 0x00F0) >> 4];
+                x = settings.getRegisters()[(opcode & 0x0F00) >> 8];
+                y = settings.getRegisters()[(opcode & 0x00F0) >> 4];
                 int height = opcode & 0x000F;
                 int pixel;
 
@@ -50,6 +63,21 @@ public class MostSignificantMisc {
 
             case 0x6000: // 0x6XNN: Sets VX to NN.
                 registers[(opcode & 0x0F00) >> 8] = (char) (opcode & 0x00FF);
+                Helper.incrementProgramCounter(chip8);
+                break;
+
+            case 0x7000: // 0x7XNN: Adds NN to VX.
+                registers[(opcode & 0x0F00) >> 8] += opcode & 0x00FF;
+                Helper.incrementProgramCounter(chip8);
+                break;
+
+            case 0xC000: // CXNN: Sets VX to a random number and NN
+                x = Helper.getX(opcode);
+
+                Random rand = new Random();
+                int n = rand.nextInt(255);
+                registers[x] = (char) ((n % 0xFF) & (opcode & 0x00FF));
+
                 Helper.incrementProgramCounter(chip8);
                 break;
 

@@ -36,7 +36,7 @@ public class LoopController {
         input.setup();
 
         chip8.initialize();
-        chip8.loadGame("BLITZ");
+        chip8.loadGame("BRIX");
 
         long nextTick = getTickCount();
 

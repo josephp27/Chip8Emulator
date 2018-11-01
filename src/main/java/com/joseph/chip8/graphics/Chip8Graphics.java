@@ -13,8 +13,7 @@ public class Chip8Graphics extends JFrame {
     private char[] screen;
     private DrawPane drawPane = new DrawPane();
 
-    public double zoomFactor = 10;
-    public boolean zoomer = true;
+    public final double ZOOM_FACTOR = 10;
     public AffineTransform at;
 
     public Chip8Graphics() throws HeadlessException {
@@ -34,7 +33,7 @@ public class Chip8Graphics extends JFrame {
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             at = g2.getTransform();
-            at.scale(zoomFactor, zoomFactor);
+            at.scale(ZOOM_FACTOR, ZOOM_FACTOR);
 
             g2.transform(at);
 
