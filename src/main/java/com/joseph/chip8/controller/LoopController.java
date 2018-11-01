@@ -40,13 +40,11 @@ public class LoopController {
 
         long nextTick = getTickCount();
 
-        int i = 0;
         while (input.isRunGame()) {
             chip8.emulateCycle();
 
             if (chip8.getSettings().isDraw()) {
                 chip8Graphics.draw();
-                chip8.getSettings().getChip8Graphics().getScreen()[i % (32 * 64)] = 1;
             }
 
             input.pressKeys();
@@ -57,7 +55,8 @@ public class LoopController {
             if (sleepTime >= 0) {
                 Thread.sleep(sleepTime);
             }
-            i++;
+
+            chip8.getSettings().setDraw(false); //idk if this goes here?
         }
 
     }

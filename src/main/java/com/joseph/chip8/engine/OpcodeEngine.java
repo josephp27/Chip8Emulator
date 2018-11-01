@@ -15,7 +15,7 @@ public class OpcodeEngine {
     private MostSignificantE mostSignificantE;
 
     public void decode(Chip8 chip8) {
-        short opcode = chip8.getSettings().getOpcode();
+        int opcode = chip8.getSettings().getOpcode();
 
         int operation = opcode & 0xF000;
 
@@ -32,7 +32,7 @@ public class OpcodeEngine {
         }
     }
 
-    public short calculateOpcode(char firstAddress, char secondAddress) {
-        return (short) (((firstAddress & 0xFF) << 8) | (secondAddress & 0xFF));
+    public int calculateOpcode(char firstAddress, char secondAddress) {
+        return ((firstAddress & 0xFF) << 8) | (secondAddress & 0xFF);
     }
 }

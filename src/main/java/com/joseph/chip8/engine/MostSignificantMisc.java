@@ -9,15 +9,15 @@ public class MostSignificantMisc {
 
     public void evaluateOpcode(Chip8 chip8, int opcode) {
         Settings settings = chip8.getSettings();
+        char[] registers = settings.getRegisters();
         switch (opcode & 0xF000) {
             case 0x1000: //	TODO: Jumps to address NNN.
-                System.out.println("jump!");
+                settings.setPc(opcode & 0x0FFF);
                 break;
 
             case 0x2000: // Calls subroutine at NNN.
                 settings.getStack()[settings.getSp()] = settings.getPc();
-                short sp = settings.getSp();
-                settings.setSp(++sp);
+                Helper.incrementStackPointer(chip8);
                 settings.setPc((short) (opcode & 0x0FFF));
                 break;
 
@@ -26,8 +26,35 @@ public class MostSignificantMisc {
                 Helper.incrementProgramCounter(chip8);
                 break;
 
+            case 0xD000:
+                int x = settings.getRegisters()[(opcode & 0x0F00) >> 8];
+                int y = settings.getRegisters()[(opcode & 0x00F0) >> 4];
+                int height = opcode & 0x000F;
+                int pixel;
+
+                settings.getRegisters()[0xF] = 0;
+                for (int yline = 0; yline < height; yline++) {
+                    pixel = settings.getMemory()[settings.getIndex() + yline];
+                    for (int xline = 0; xline < 8; xline++) {
+                        if ((pixel & (0x80 >> xline)) != 0) {
+                            if (settings.getChip8Graphics().getScreen()[(x + xline + ((y + yline) * 64))] == 1)
+                                settings.getRegisters()[0xF] = 1;
+                            settings.getChip8Graphics().getScreen()[x + xline + ((y + yline) * 64)] ^= 1;
+                        }
+                    }
+                }
+
+                chip8.getSettings().setDraw(true);
+                Helper.incrementProgramCounter(chip8);
+                break;
+
+            case 0x6000: // 0x6XNN: Sets VX to NN.
+                registers[(opcode & 0x0F00) >> 8] = (char) (opcode & 0x00FF);
+                Helper.incrementProgramCounter(chip8);
+                break;
+
             default:
-                System.out.println("unknown opcode " + opcode);
+                System.out.println(String.format("unknown opcode: 0x%08X", opcode));
         }
     }
 }

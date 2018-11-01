@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 public class Settings {
     private boolean draw;
     private char[] memory;
-    private short[] stack;
+    private int[] stack;
     private char[] registers;
-    private short sp;
-    private short pc;
-    private short index;
-    private short opcode;
+    private int sp;
+    private int pc;
+    private int index;
+    private int opcode;
     private char delayTimer;
     private char soundTimer;
     private Chip8Graphics chip8Graphics;

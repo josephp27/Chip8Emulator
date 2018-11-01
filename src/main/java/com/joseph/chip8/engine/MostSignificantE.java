@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MostSignificantE {
-    public void evaluateOpcode(Chip8 chip8, short opcode) {
+    public void evaluateOpcode(Chip8 chip8, int opcode) {
+        System.out.println(String.format("unknown opcode: 0x%08X", opcode));
     }
 }

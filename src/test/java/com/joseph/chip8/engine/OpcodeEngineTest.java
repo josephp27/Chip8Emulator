@@ -44,10 +44,13 @@ public class OpcodeEngineTest {
 
     @Test
     public void testOpcode() {
-        short expectedValue = (short) 0xA250;
-        short actualValue = opcodeEngine.calculateOpcode((char) 0xA2, (char) 0x50);
+        int expectedValue = 0xA250;
+        int overflow = 0xFFFF;
+        int actualValue = opcodeEngine.calculateOpcode((char) 0xA2, (char) 0x50);
+        int actualValueOverflow = opcodeEngine.calculateOpcode((char) 0xFF, (char) 0xFF);
 
         assertThat(actualValue, is(expectedValue));
+        assertThat(overflow, is(actualValueOverflow));
     }
 
     @Test

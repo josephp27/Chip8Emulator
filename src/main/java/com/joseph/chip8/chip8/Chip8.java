@@ -37,12 +37,12 @@ public class Chip8 {
         settings = Settings.builder()
                 .draw(true)
                 .memory(new char[4096])
-                .pc((short) 0x200)
+                .pc(0x200)
                 .registers(new char[16])
-                .index((short) 0)
-                .opcode((short) 0)
-                .sp((short) 0)
-                .stack(new short[16])
+                .index(0)
+                .opcode(0)
+                .sp(0)
+                .stack(new int[16])
                 .delayTimer((char) 0)
                 .soundTimer((char) 0)
                 .chip8Graphics(chip8Graphics)
@@ -95,7 +95,7 @@ public class Chip8 {
         char[] memory = settings.getMemory();
         int pc = settings.getPc();
 
-        short opcode = opcodeEngine.calculateOpcode(memory[pc], memory[pc + 1]);
+        int opcode = opcodeEngine.calculateOpcode(memory[pc], memory[pc + 1]);
         settings.setOpcode(opcode);
 
         opcodeEngine.decode(this);

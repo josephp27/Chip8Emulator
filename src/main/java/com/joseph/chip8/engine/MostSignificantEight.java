@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MostSignificantEight {
 
-    public void evaluateOpcode(Chip8 chip8, short opcode) {
+    public void evaluateOpcode(Chip8 chip8, int opcode) {
         switch (opcode & 0x000F) {
             case 0x0004:
                 char[] registers = chip8.getSettings().getRegisters();
@@ -18,6 +18,10 @@ public class MostSignificantEight {
                 registers[(opcode & 0x0F00) >> 8] += registers[(opcode & 0x00F0) >> 4];
                 Helper.incrementProgramCounter(chip8);
                 break;
+
+            default:
+                System.out.println(String.format("unknown opcode: 0x%08X", opcode));
+
         }
     }
 }
