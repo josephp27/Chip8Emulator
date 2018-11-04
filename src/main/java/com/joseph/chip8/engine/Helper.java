@@ -33,4 +33,8 @@ public class Helper {
     public static int getY(int opcode){
         return (opcode & 0x00F0) >> 4;
     }
+
+    public static int calculateOpcode(char firstAddress, char secondAddress) {
+        return ((firstAddress & 0xFF) << 8) | (secondAddress & 0xFF);
+    }
 }

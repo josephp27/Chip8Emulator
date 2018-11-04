@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MostSignificantE {
     public void evaluateOpcode(Chip8 chip8, int opcode) {
+        int x;
         char[] keyPressed = chip8.getSettings().getInput().getKeyPressed();
         char[] registers = chip8.getSettings().getRegisters();
-        int x, y;
 
         switch (opcode & 0x00FF) {
             case 0x009E: // EX9E: Skips the next instruction if the key stored in VX is pressed

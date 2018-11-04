@@ -37,6 +37,7 @@ public class LoopController {
 
         chip8.initialize();
         chip8.loadGame("BRIX");
+//        chip8.loadGame("BRIX");
 
         long nextTick = getTickCount();
 
@@ -56,7 +57,7 @@ public class LoopController {
                 Thread.sleep(sleepTime);
             }
 
-            chip8.getSettings().setDraw(false); //idk if this goes here?
+            chip8.getSettings().setDraw(false);
         }
 
     }

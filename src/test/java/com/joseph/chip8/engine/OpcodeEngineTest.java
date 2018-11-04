@@ -46,8 +46,8 @@ public class OpcodeEngineTest {
     public void testOpcode() {
         int expectedValue = 0xA250;
         int overflow = 0xFFFF;
-        int actualValue = opcodeEngine.calculateOpcode((char) 0xA2, (char) 0x50);
-        int actualValueOverflow = opcodeEngine.calculateOpcode((char) 0xFF, (char) 0xFF);
+        int actualValue = Helper.calculateOpcode((char) 0xA2, (char) 0x50);
+        int actualValueOverflow = Helper.calculateOpcode((char) 0xFF, (char) 0xFF);
 
         assertThat(actualValue, is(expectedValue));
         assertThat(overflow, is(actualValueOverflow));

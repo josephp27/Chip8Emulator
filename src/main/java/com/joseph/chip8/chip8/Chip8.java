@@ -1,5 +1,6 @@
 package com.joseph.chip8.chip8;
 
+import com.joseph.chip8.engine.Helper;
 import com.joseph.chip8.engine.OpcodeEngine;
 import com.joseph.chip8.graphics.Chip8Graphics;
 import com.joseph.chip8.graphics.Fonts;
@@ -95,7 +96,7 @@ public class Chip8 {
         char[] memory = settings.getMemory();
         int pc = settings.getPc();
 
-        int opcode = opcodeEngine.calculateOpcode(memory[pc], memory[pc + 1]);
+        int opcode = Helper.calculateOpcode(memory[pc], memory[pc + 1]);
         settings.setOpcode(opcode);
 
         opcodeEngine.decode(this);

@@ -12,11 +12,10 @@ public class MostSignificantMisc {
     public void evaluateOpcode(Chip8 chip8, int opcode) {
         Settings settings = chip8.getSettings();
         char[] registers = settings.getRegisters();
-        int x;
-        int y;
+        int x, y;
 
         switch (opcode & 0xF000) {
-            case 0x1000: //	TODO: Jumps to address NNN.
+            case 0x1000:
                 settings.setPc(opcode & 0x0FFF);
                 break;
 

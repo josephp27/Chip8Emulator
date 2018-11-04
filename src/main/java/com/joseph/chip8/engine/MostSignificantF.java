@@ -34,9 +34,7 @@ public class MostSignificantF {
 
             case 0x0065: // FX65: Fills V0 to VX with values from memory starting at address I
                 x = Helper.getX(opcode);
-                for (int i = 0; i <= x; i++) {
-                    registers[i] = memory[index + i];
-                }
+                System.arraycopy(memory, index, registers, 0, x + 1);
 
                 chip8.getSettings().setIndex(index + x + 1);
                 Helper.incrementProgramCounter(chip8);
@@ -44,9 +42,7 @@ public class MostSignificantF {
 
             case 0x0055: // FX55: Stores V0 to VX in memory starting at address I
                 x = Helper.getX(opcode);
-                for (int i = 0; i <= x; i++) {
-                    memory[index + i] = registers[i];
-                }
+                System.arraycopy(registers, 0, memory, index, x + 1);
 
                 // On the original interpreter, when the operation is done, I = I + X + 1.
                 chip8.getSettings().setIndex(index + x + 1);

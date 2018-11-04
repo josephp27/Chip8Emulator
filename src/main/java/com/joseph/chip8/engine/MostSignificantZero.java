@@ -17,13 +17,11 @@ public class MostSignificantZero {
                 int sp = Helper.decrementStackPointer(chip8);
                 chip8.getSettings().setPc(chip8.getSettings().getStack()[sp]);
                 Helper.incrementProgramCounter(chip8);
-                return;
+                break;
 
             default: // Calls RCA 1802 program at address NNN. Not necessary for most ROMs.
                 //TODO: not done
                 System.out.println(String.format("unknown opcode: 0x%08X", opcode));
-
-
         }
     }
 }

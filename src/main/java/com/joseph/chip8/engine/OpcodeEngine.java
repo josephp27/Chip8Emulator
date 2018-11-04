@@ -31,8 +31,4 @@ public class OpcodeEngine {
             mostSignificantMisc.evaluateOpcode(chip8, opcode);
         }
     }
-
-    public int calculateOpcode(char firstAddress, char secondAddress) {
-        return ((firstAddress & 0xFF) << 8) | (secondAddress & 0xFF);
-    }
 }
