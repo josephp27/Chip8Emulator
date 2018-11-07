@@ -24,7 +24,7 @@ public class LoopController {
 
     public void run() throws Exception {
 
-        //TODO implement this so frame isnt capped at 60
+        // TODO implement this so frame isnt capped at 60
         firstTick = System.currentTimeMillis();
 
         final int FRAMES_PER_SECOND = 800;
@@ -36,8 +36,7 @@ public class LoopController {
         input.setup();
 
         chip8.initialize();
-        chip8.loadGame("BRIX");
-//        chip8.loadGame("BRIX");
+        chip8.loadGame("PONG2");
 
         long nextTick = getTickCount();
 
